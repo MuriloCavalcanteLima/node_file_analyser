@@ -28,12 +28,13 @@ app.get('/', function (req, res) {
 });
 
 app.post('/api/fileanalyse', upload.single('upfile'), (req, res) => {
-  if(!req.file) res.status(400).json({message: 'file not uploaded'})
+  const file = req.file
+  if(!file) res.status(400).json({message: 'file not uploaded'})
 
   res.json({
-    "name": req.file.filename,
-    "type": req.file.mimetype,
-    "size": req.file.size
+    "name": file.originalname,
+    "type": file.mimetype,
+    "size": file.size
   })
 })
 
